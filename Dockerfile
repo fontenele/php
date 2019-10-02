@@ -24,6 +24,9 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer global require hirak/prestissimo \
+    && npm cache clean -f \
+    && npm install -g n \
+    && n stable \
     && npm i -g yarn
 
 COPY entrypoint.sh /entrypoint.sh
