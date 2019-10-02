@@ -26,11 +26,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     && composer global require hirak/prestissimo \
     && npm cache clean -f \
     && npm install -g n \
-    && n stable \
-    && bash \
-    && npm install npm@latest -g \
-    && bash \
-    && npm i -g yarn
+    && n stable && bash
+RUN npm install npm@latest -g && bash
+RUN npm i -g yarn
 
 COPY entrypoint.sh /entrypoint.sh
 COPY listener.php /listener.php
