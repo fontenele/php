@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:jessie-slim
 
 LABEL maintainer="Guilherme Fontenele <guilherme@fontenele.net>"
 
