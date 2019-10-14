@@ -5,7 +5,7 @@ LABEL maintainer="Guilherme Fontenele <guilherme@fontenele.net>"
 RUN apt-get update -qq && apt-get install -y apt-utils unzip zip tree curl net-tools wget git vim procps libcurl4 npm supervisor ca-certificates apt-transport-https \
         && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
 	&& echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list \
-	&& apt-get update -qq && apt-get install -y nginx php7.2-fpm php7.2-gd php7.2-bcmath php7.2-bz2 php7.2-cli php7.2-intl php7.2-pdo php7.2-mbstring php7.2-pgsql php7.2-iconv php7.2-soap php7.2-sockets php7.2-mysql php7.2-zip php7.2-curl php7.2-xml php-xdebug \
+	&& apt-get update -qq && apt-get install -y nginx php7.2-fpm php7.2-gd php7.2-bcmath php7.2-bz2 php7.2-cli php7.2-intl php7.2-pdo php7.2-mbstring php7.2-pgsql php7.2-iconv php7.2-soap php7.2-sockets php7.2-mysql php7.2-zip php7.2-curl php7.2-xml php-xdebug php-mongodb \
 	&& mkdir /run/php && touch /run/php/php7.2-fpm.sock && touch /run/php/php7.2-fpm.pid && chmod -Rf 777 /var/lib/php/sessions
 
 RUN openssl req -batch -nodes -newkey rsa:2048 -keyout /etc/ssl/private/server.key -out /tmp/server.csr -subj "/C=BR/ST=DF/L=Brasilia/O=Dev/OU=FS/CN=localhost" \
