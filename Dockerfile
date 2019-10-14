@@ -6,7 +6,7 @@ RUN apt-get update -qq && apt-get install -y apt-utils unzip zip tree curl net-t
         && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
 	&& echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list \
 	&& apt-get update -qq && apt-get install -y nginx php7.4-fpm php7.4-gd php7.4-bcmath php7.4-bz2 php7.4-cli php7.4-intl php7.4-pdo php7.4-mbstring php7.4-pgsql php7.4-iconv php7.4-soap php7.4-sockets php7.4-mysql php7.4-zip php7.4-curl php7.4-xml php-xdebug \
-	&& mkdir /run/php && touch /run/php/php7.4-fpm.sock && touch /run/php/php7.4-fpm.pid
+	&& mkdir /run/php && touch /run/php/php7.4-fpm.sock && touch /run/php/php7.4-fpm.pid && chmod -Rf 777 /var/lib/php/sessions
 
 RUN openssl req -batch -nodes -newkey rsa:2048 -keyout /etc/ssl/private/server.key -out /tmp/server.csr -subj "/C=BR/ST=DF/L=Brasilia/O=Dev/OU=FS/CN=localhost" \
     && openssl x509 -req -days 365 -in /tmp/server.csr -signkey /etc/ssl/private/server.key -out /etc/ssl/certs/server.crt \
@@ -39,6 +39,7 @@ COPY php-fpm.conf.tpl /tmp/php-fpm.conf.tpl
 COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
 RUN chmod 755 /entrypoint.sh
+ENV OPENSSL_CONF="/etc/ssl/"
 
 EXPOSE 80
 EXPOSE 443
