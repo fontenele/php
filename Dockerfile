@@ -2,7 +2,7 @@ FROM debian:buster-slim
 
 LABEL maintainer="Guilherme Fontenele <guilherme@fontenele.net>"
 
-RUN apt-get update -qq && apt-get install -y apt-utils unzip zip tree curl net-tools wget git vim procps libcurl4 npm supervisor ca-certificates apt-transport-https sqlite3 \
+RUN apt-get update -qq && apt-get install -y apt-utils unzip zip tree curl net-tools wget git vim procps libcurl4 npm supervisor ca-certificates apt-transport-https sqlite3 cron \
         && wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add - \
 	&& echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list \
 	&& apt-get update -qq && apt-get install -y nginx php7.4-fpm php7.4-gd php7.4-bcmath php7.4-bz2 php7.4-cli php7.4-intl php7.4-pdo php7.4-mbstring php7.4-pgsql php7.4-iconv php7.4-soap php7.4-sockets php7.4-mysql php7.4-zip php7.4-pgsql php7.4-sqlite php7.4-curl php7.4-xml php-imagick php-xdebug php-mongodb php-redis \
@@ -37,6 +37,9 @@ COPY listener.php /listener.php
 COPY nginx.conf.tpl /tmp/nginx.conf.tpl
 COPY php-fpm.conf.tpl /tmp/php-fpm.conf.tpl
 COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+
+RUN echo "* * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1" > /var/spool/cron/crontabs/$(whoami)
+RUN chmod 600 /var/spool/cron/crontabs/$(whoami)
 
 RUN chmod 755 /entrypoint.sh
 ENV OPENSSL_CONF="/etc/ssl/"
