@@ -25,7 +25,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 #    && sed -i 's/worker_connections 768/worker_connections 4096/g' /etc/nginx/nginx.conf
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && composer global require hirak/prestissimo \
+    && composer self-update --snapshot \
     && npm cache clean -f \
     && npm install -g n \
     && n stable && bash
