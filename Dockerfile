@@ -35,6 +35,7 @@ RUN npm i -g yarn
 COPY entrypoint.sh /entrypoint.sh
 COPY listener.php /listener.php
 COPY nginx.conf.tpl /tmp/nginx.conf.tpl
+COPY nginx_default.conf /etc/nginx/sites-enabled/default
 COPY php-fpm.conf.tpl /tmp/php-fpm.conf.tpl
 COPY supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
