@@ -7,6 +7,7 @@ image: fontenele/php
 - 7.2-nginx
 - 7.3-nginx
 - 7.4-nginx
+- 8.0-nginx
 
 #### Service config for docker-compose
 
@@ -14,7 +15,7 @@ image: fontenele/php
 version: '3.0'
 services:
     web:
-        image: fontenele/php:7.4-nginx
+        image: fontenele/php:8.0-nginx
         container_name: name_of_container
         tty: true
         stdin_open: true
@@ -23,5 +24,5 @@ services:
             - ./:/var/www/html
 ```
 
-###### simplified for laravel
+###### Simplified for laravel
 ###### FonteSolutions - www.fontesolutions.com.br
